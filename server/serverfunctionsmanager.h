@@ -2,7 +2,7 @@
 #include <QMap>
 #include "serverfunc.h"
 
-class ServerFunctions
+class ServerFunctionsManager
 {
     static QMap<QString, IServerFunc*> funcs;
     public:

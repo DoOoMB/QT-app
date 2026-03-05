@@ -19,8 +19,9 @@ qt_add_executable(qt-tcp-server
     dbmanager.h
     dbmanager.cpp
     serverfunc.h
-    serverfunctions.h
-    serverfunctions.cpp
+    serverfunctionsmanager.h
+    serverfunctionsmanager.cpp
+
 )
 
 target_link_libraries(qt-tcp-server PRIVATE Qt6::Core)

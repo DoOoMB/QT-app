@@ -2,7 +2,7 @@
 #include <QDebug>
 #include <QCoreApplication>
 #include <QString>
-#include "serverfunctions.h"
+#include "serverfunctionsmanager.h"
 
 MyTcpServer::~MyTcpServer()
 {
@@ -46,8 +46,6 @@ void MyTcpServer::slotNewConnection(){
 }
 
 void MyTcpServer::slotServerRead(){
-    QString res = "";
-
     QTcpSocket* clientSocket = qobject_cast<QTcpSocket*>(sender()); // достаём сокет клиента, что отправил сигнал
 
     if (!clientSocket) // проверяем, существует ли он, если нет, ничего не делаем
@@ -64,7 +62,7 @@ void MyTcpServer::slotServerRead(){
         qDebug() << "Server received an empty command from client" << client_addr;
     }
 
-    QString resp = ServerFunctions::parse(command); // парсим команду
+    QString resp = ServerFunctionsManager::parse(command); // парсим команду
     qDebug() << "Sending response to client" << client_addr;
     if (clientSocket->state() == QAbstractSocket::ConnectedState) // проверям, активен ли клиент
     {

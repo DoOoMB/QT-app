@@ -1,8 +1,8 @@
 #include <QObject>
-#include "serverfunctions.h"
+#include "serverfunctionsmanager.h"
 
-QMap<QString, IServerFunc*> ServerFunctions::funcs;
-QString ServerFunctions::parse(QString str)
+QMap<QString, IServerFunc*> ServerFunctionsManager::funcs;
+QString ServerFunctionsManager::parse(QString str)
 {
     if (!funcs.contains(str))
     {
