@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QCoreApplication>
 #include <QString>
+#include "serverfunctions.h"
 
 MyTcpServer::~MyTcpServer()
 {
@@ -55,20 +56,23 @@ void MyTcpServer::slotServerRead(){
         return;
     }
 
-    while(clientSocket->bytesAvailable()>0) // пока в буфере есть данные для чтения
+    QByteArray data = clientSocket->readAll(); // читаем read buffer
+    QString command = QString::fromUtf8(data).trimmed(); // достаём текст команды
+    QString client_addr = clientSocket->peerAddress().toString(); // достаём адрес клиента
+    if (command.isEmpty())
     {
-        QByteArray array =clientSocket->readAll(); // читаем данные из read buffer
-        qDebug()<<array<<"\n";
-        if(array=="\x01") // если попадается конец строки
-        {
-            clientSocket->write(res.toUtf8()); // выводим тоже самое клиенту
-            res = "";
-        }
-        else
-            res.append(array); // иначе отправляем байт в res
+        qDebug() << "Server received an empty command from client" << client_addr;
     }
-    clientSocket->write(res.toUtf8()); // отправляем res клиенту
-    clientSocket->flush(); // принудительно отправляем все данные из буфера
+
+    QString resp = ServerFunctions::parse(command); // парсим команду
+    qDebug() << "Sending response to client" << client_addr;
+    if (clientSocket->state() == QAbstractSocket::ConnectedState) // проверям, активен ли клиент
+    {
+        clientSocket->write(resp.toUtf8()); // отправляем ответ клиенту
+        clientSocket->flush(); // принудительно отправляем все данные из буфера
+    } else {
+        qDebug() << "Response was not sended. Client" << client_addr << "is already disconnected.";
+    }
 }
 
 void MyTcpServer::slotClientDisconnected(){
