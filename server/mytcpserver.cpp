@@ -24,7 +24,7 @@ MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent){
     connect(mTcpServer, &QTcpServer::newConnection,
             this, &MyTcpServer::slotNewConnection); // подключаем инстанс сервера и назначаем нужные слоты для сигналов
 
-    if(!mTcpServer->listen(QHostAddress::Any, 44444)){ // слушаем порт 3333
+    if(!mTcpServer->listen(QHostAddress::Any, 44444)){ // слушаем порт 44444
         qDebug() << "server is not started";
     } else {
         //server_status=1;

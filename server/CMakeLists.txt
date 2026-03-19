@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_COMPILE_WARNING_AS_ERROR OFF)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Network)
+find_package(Qt6 REQUIRED COMPONENTS Core Network Sql)
 
 qt_standard_project_setup()
 
@@ -26,3 +26,4 @@ qt_add_executable(qt-tcp-server
 
 target_link_libraries(qt-tcp-server PRIVATE Qt6::Core)
 target_link_libraries(qt-tcp-server PRIVATE Qt6::Network)
+target_link_libraries(qt-tcp-server PRIVATE Qt6::Sql)

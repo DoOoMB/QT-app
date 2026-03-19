@@ -3,5 +3,6 @@
 class IServerFunc
 {
     public:
-        virtual void run(char args[]);
+        IServerFunc();
+        virtual QString run(QStringList args);
 };

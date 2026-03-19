@@ -1,7 +1,158 @@
 #include "dbmanager.h"
 #include <QObject>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QRandomGenerator>
+#include <QSqlError>
 
 DBManager::DBManager()
 {
-    return;
+    this->db = QSqlDatabase::addDatabase("QPSQL");
+    
+    db.setHostName("localhost");
+    db.setPort(5433);
+
+    db.setDatabaseName("doomb");
+    db.setUserName("postgres");
+    db.setPassword("pass");
+
+    if (!db.open())
+    {
+        qDebug() << "Database connection refused. Something went wrong.";
+        return;
+    }
+
+    qDebug() << "Connected to the database succesfully";
+
+}
+
+DBManager::~DBManager()
+{
+    if (db.isOpen())
+    {
+        db.close();
+        qDebug() << "Database connection was closed.";
+    }
+}
+
+QString DBManager::auth(QString login, QString password)
+{
+    if (!db.isOpen())
+    {
+        qDebug() << "Database connection is not open. Something went wrong.";
+        return "connection_error";        
+    }
+    db.transaction();
+    QSqlQuery query;
+    query.prepare("SELECT * FROM USERS WHERE login = ? AND password = ?");
+    query.addBindValue(login);
+    query.addBindValue(password);
+
+    if (!query.exec())
+    {
+        db.rollback();
+        qDebug() << "Database query execution error: " << query.lastError().text();
+        return "query_error";
+    }
+    if (query.next())
+    {
+        qDebug() << "User" << query.value("login").toString() << "authorized successfully.";
+        QString token = generateToken();
+        authBuffer[login] = token;
+        db.commit();
+        return token;
+    }
+    else
+    {
+        db.rollback();
+        return "auth_failed";
+    }
+}
+
+QString DBManager::registration(QString login, QString password)
+{
+    if (!db.isOpen())
+    {
+        qDebug() << "Database connection is not open. Something went wrong.";
+        return "connection_error";        
+    }
+    db.transaction();
+    QSqlQuery query;
+    query.prepare("SELECT * FROM USERS WHERE login = ?");
+    query.addBindValue(login);
+
+    if (!query.exec())
+    {
+        db.rollback();
+        qDebug() << "Database query execution error: " << query.lastError().text();
+        return "query_error";
+    }
+    if (query.next())
+    {
+        db.rollback();
+        qDebug() << "User with login" << login << "already exists.";
+        return "reg_error";
+    } else {
+        query.prepare("INSERT INTO users (login, password) VALUES (?, ?)");
+        query.addBindValue(login);
+        query.addBindValue(password);
+        if (!query.exec())
+        {
+            db.rollback();
+            qDebug() << "Database query execution error: " << query.lastError().text();
+            return "query_error";
+        }
+        db.commit();
+        qDebug() << "User" << login << "authorized successfully.";
+        return "reg_success";
+    }
+}
+
+QString DBManager::getStats(QString login, QString token)
+{
+    if (!authBuffer.contains(login) || authBuffer[login] != token)
+    {
+        return "unauth_err";
+    }
+    db.transaction();
+    QSqlQuery query;
+    query.prepare("SELECT s.stats, s.date FROM stats s JOIN users u ON u.user_id = s.user_id WHERE u.login = ?");
+    query.addBindValue(login);
+    if (!query.exec())
+    {
+        db.rollback();
+        qDebug() << "Database query execution error: " << query.lastError().text();
+        return "query_error";
+    }
+    QString stats = "";
+    while (query.next())
+    {
+        stats = stats + query.value("stats").toString() + "&";
+    }
+    db.commit();
+    return stats.mid(0, stats.length()-1);
+}
+
+QString DBManager::executeQuery(QString q)
+{
+    if(!db.open())
+    {
+        qDebug() << "Database connection is not open. Something went wrong.";
+        return "connection_error";  
+    }
+    db.transaction();
+    QSqlQuery query;
+    if(!query.exec(q))
+    {
+        db.rollback();
+        qDebug() << "Database query execution error: " << query.lastError().text();
+        return "query_error";
+    }
+    db.commit();
+    return "success";
+}
+
+QString DBManager::generateToken()
+{
+    return QString::number(QRandomGenerator::global()->generate());
 }
