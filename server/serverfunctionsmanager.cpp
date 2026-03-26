@@ -27,7 +27,8 @@ QString registration(QStringList args)
 QString getStats(QStringList args)
 {
     if (args.length() != 2) return "Cannot fetch stats.\r\n";
-    QString resp = DBManager::Instance().getStats(args[0], args[1]);
+    if (!DBManager::Instance().checkAuth(args[0], args[1])) return "token_expired\r\n";
+    QString resp = DBManager::Instance().getStats(args[0]);
     qDebug() << resp;
     if (resp !="unauth_err" && resp != "query_error")
         return "stats&"+resp+"\r\n";
@@ -36,6 +37,8 @@ QString getStats(QStringList args)
 
 QString calc(QStringList args)
 {
+    if (args.length() != 2) return "Cannot calc.\r\n";
+    if (!DBManager::Instance().checkAuth(args[0], args[1])) return "token_expired\r\n";
     return "Successfully calculated.\r\n";
 }
 

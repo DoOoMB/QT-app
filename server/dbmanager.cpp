@@ -4,6 +4,7 @@
 #include <QSqlQuery>
 #include <QRandomGenerator>
 #include <QSqlError>
+#include <QUuid>
 
 DBManager::DBManager()
 {
@@ -58,7 +59,8 @@ QString DBManager::auth(QString login, QString password)
     {
         qDebug() << "User" << query.value("login").toString() << "authorized successfully.";
         QString token = generateToken();
-        authBuffer[login] = token;
+        authBuffer[login].token = token;
+        authBuffer[login].expiresAt = QDateTime::currentDateTime().addSecs(1800);
         db.commit();
         return token;
     }
@@ -108,12 +110,9 @@ QString DBManager::registration(QString login, QString password)
     }
 }
 
-QString DBManager::getStats(QString login, QString token)
+QString DBManager::getStats(QString login)
 {
-    if (!authBuffer.contains(login) || authBuffer[login] != token)
-    {
-        return "unauth_err";
-    }
+    
     db.transaction();
     QSqlQuery query;
     query.prepare("SELECT s.stats, s.date FROM stats s JOIN users u ON u.user_id = s.user_id WHERE u.login = ?");
@@ -152,7 +151,21 @@ QString DBManager::executeQuery(QString q)
     return "success";
 }
 
+bool DBManager::checkAuth(QString login, QString token)
+{
+    if (!authBuffer.contains(login) || authBuffer[login].token != token)
+    {
+        return 0;
+    }
+    if (QDateTime::currentDateTime() > authBuffer[login].expiresAt)
+    {
+        authBuffer.remove(login);
+        return 0;
+    }
+    return 1;
+}
+
 QString DBManager::generateToken()
 {
-    return QString::number(QRandomGenerator::global()->generate());
+    return QUuid::createUuid().toString(QUuid::WithoutBraces);
 }

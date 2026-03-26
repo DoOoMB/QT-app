@@ -1,6 +1,13 @@
 #include <QObject>
 #include <QSqlDatabase>
 #include <QMap>
+#include <QDateTime>
+
+struct AuthData
+{
+    QString token;
+    QDateTime expiresAt;
+};
 
 class DBManager : public QObject
 {
@@ -13,11 +20,12 @@ class DBManager : public QObject
 
         QString auth(QString login, QString password);
         QString registration(QString login, QString password);
-        QString getStats(QString login, QString token);
+        QString getStats(QString login);
         QString executeQuery(QString q);
+        bool checkAuth(QString login, QString token);
 
     private:
-        QMap<QString, QString> authBuffer; // хранит пары логин-токен для авторизованных пользователей
+        QMap<QString, AuthData> authBuffer; // хранит пары логин-токен для авторизованных пользователей
         DBManager();
         ~DBManager();
         QString generateToken();
