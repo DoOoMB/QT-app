@@ -21,6 +21,7 @@ class DBManager : public QObject
         QString auth(QString login, QString password);
         QString registration(QString login, QString password);
         QString getStats(QString login);
+        QString setStats(QString login, QString stats);
         QString executeQuery(QString q);
         bool checkAuth(QString login, QString token);
 

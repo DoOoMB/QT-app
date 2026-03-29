@@ -126,10 +126,28 @@ QString DBManager::getStats(QString login)
     QString stats = "";
     while (query.next())
     {
-        stats = stats + query.value("stats").toString() + "&";
+        stats = stats + query.value("stats").toString() + "," + query.value("date").toString() + "&";
     }
     db.commit();
     return stats.mid(0, stats.length()-1);
+}
+
+QString DBManager::setStats(QString login, QString stats)
+{
+    db.transaction();
+    QSqlQuery query;
+    query.prepare("INSERT INTO stats (stats, date, user_id) VALUES (?, ?, (SELECT user_id FROM users u WHERE u.login = ? ))");
+    query.addBindValue(stats); // статы
+    query.addBindValue(QDateTime::currentDateTime()); // текущее время
+    query.addBindValue(login); // логин
+    if (!query.exec())
+    {
+        db.rollback();
+        qDebug() << "Database query execution error: " << query.lastError().text();
+        return "query_error";
+    }
+    db.commit();
+    return "set_stats_success";
 }
 
 QString DBManager::executeQuery(QString q)
