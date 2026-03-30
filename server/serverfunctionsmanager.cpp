@@ -118,7 +118,7 @@ QString findNodesByDepth(QStringList args)
         qDebug() << "incorrect graph formatting";
         return "findNodesByDepth_error\r\n";
     }
-    // try{
+    try{
         QJsonArray rootArray = doc.array();
 
         QVector<Node*> nodes;
@@ -167,19 +167,45 @@ QString findNodesByDepth(QStringList args)
         DBManager::Instance().setStats(args[0], QString::fromUtf8(stats_byte_arr));
 
         return "findNodesByDepth&" + resp.mid(0, resp.length()-1) + "\r\n";
-    // } catch (const std::exception &e)
-    // {
-    //     qDebug() << e.what();
-    //     return "findNodesByDepth_error\r\n";
-    // }
+    } catch (const std::exception &e)
+    {
+        qDebug() << e.what();
+        return "findNodesByDepth_error\r\n";
+    }
 }
+
+QString isPathShortest(QStringList args)
+{
+    if (args.length() != 4) return "isPathShortest_error\r\n";
+    if (!DBManager::Instance().checkAuth(args[0], args[1])) return "token_expired\r\n";
+    return "isPathShortest&true";
+}
+
+QString primesAlgorithm(QStringList args)
+{
+    if (args.length() != 4) return "primesAlgorithm_error\r\n";
+    if (!DBManager::Instance().checkAuth(args[0], args[1])) return "token_expired\r\n";
+    return "primesAlgorithm&5";
+}
+
+QString kruskalsAlgorithm(QStringList args)
+{
+    if (args.length() != 4) return "kruskalssAlgorithm_error\r\n";
+    if (!DBManager::Instance().checkAuth(args[0], args[1])) return "token_expired\r\n";
+    return "kruskalssAlgorithm&5";
+}
+
+
 QJsonDocument stats_doc;
 QMap<QString, serverFunc>ServerFunctionsManager::funcs = {
     {"auth", auth},
     {"reg", registration},
     {"stats", getStats},
     {"set_stats", setStats},
-    {"findNodesByDepth", findNodesByDepth}
+    {"findNodesByDepth", findNodesByDepth},
+    {"isPathShortest", isPathShortest},
+    {"primesAlgorithm", primesAlgorithm},
+    {"kruskalsAlgorithm", kruskalsAlgorithm}
 };
 
 QString ServerFunctionsManager::parse(QString str)
@@ -198,4 +224,3 @@ QString ServerFunctionsManager::parse(QString str)
     }
     return funcs[command](args);
 }
-
