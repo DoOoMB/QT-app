@@ -148,6 +148,90 @@ findNodesByDepth_error   — ошибка парсинга/обработки
 
 ---
 
+### 6. ISPATHSHORTEST — Проверка кратчайшего пути
+
+**Формат запроса:**
+```
+isPathShortest&LOGIN&TOKEN&START_NODE&GRAPH_JSON
+```
+
+**Аргументы:**
+- `LOGIN` — логин пользователя (строка)
+- `TOKEN` — токен авторизации (строка)
+- `START_NODE` — ID начального узла (число)
+- `GRAPH_JSON` — граф в формате JSON массива (см. формат выше)
+
+**Ответ при успехе:**
+```
+isPathShortest&true
+```
+или
+```
+isPathShortest&false
+```
+
+**Ответы при ошибке:**
+```
+token_expired           — токен истёк
+isPathShortest_error    — ошибка обработки
+```
+
+---
+
+### 7. PRIMESALGORITHM — Алгоритм Прима (минимальное остовное дерево)
+
+**Формат запроса:**
+```
+primesAlgorithm&LOGIN&TOKEN&START_NODE&GRAPH_JSON
+```
+
+**Аргументы:**
+- `LOGIN` — логин пользователя (строка)
+- `TOKEN` — токен авторизации (строка)
+- `START_NODE` — ID начального узла (число)
+- `GRAPH_JSON` — граф в формате JSON массива (см. формат выше)
+
+**Ответ при успехе:**
+```
+primesAlgorithm&WEIGHT
+```
+где `WEIGHT` — общий вес минимального остовного дерева (число)
+
+**Ответы при ошибке:**
+```
+token_expired          — токен истёк
+primesAlgorithm_error  — ошибка обработки
+```
+
+---
+
+### 8. KRUSKALSALGORITHM — Алгоритм Крускала (минимальное остовное дерево)
+
+**Формат запроса:**
+```
+kruskalsAlgorithm&LOGIN&TOKEN&START_NODE&GRAPH_JSON
+```
+
+**Аргументы:**
+- `LOGIN` — логин пользователя (строка)
+- `TOKEN` — токен авторизации (строка)
+- `START_NODE` — ID начального узла (число)
+- `GRAPH_JSON` — граф в формате JSON массива (см. формат выше)
+
+**Ответ при успехе:**
+```
+kruskalssAlgorithm&WEIGHT
+```
+где `WEIGHT` — общий вес минимального остовного дерева (число)
+
+**Ответы при ошибке:**
+```
+token_expired               — токен истёк
+kruskalssAlgorithm_error    — ошибка обработки
+```
+
+---
+
 ## Обработка ответов (клиентская сторона)
 
 ### Алгоритм:
@@ -194,6 +278,12 @@ findNodesByDepth_error   — ошибка парсинга/обработки
 | `set_stats_error` | Ошибка при сохранении статистики |
 | `findNodesByDepth` | Результат поиска в графе |
 | `findNodesByDepth_error` | Ошибка при обработке графа |
+| `isPathShortest` | Результат проверки пути |
+| `isPathShortest_error` | Ошибка при проверке пути |
+| `primesAlgorithm` | Результат алгоритма Прима |
+| `primesAlgorithm_error` | Ошибка при выполнении алгоритма Прима |
+| `kruskalssAlgorithm` | Результат алгоритма Крускала |
+| `kruskalssAlgorithm_error` | Ошибка при выполнении алгоритма Крускала |
 | `Unknown_command` | Неизвестная команда |
 
 ---
