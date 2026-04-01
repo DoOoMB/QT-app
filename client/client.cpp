@@ -1,4 +1,5 @@
 #include "client.h"
+#include <QObject>
 
 Client* Client::p_instance = nullptr;
 ClientDestroyer Client::destroyer;
@@ -56,6 +57,7 @@ void Client::getStats() {
 void Client::onReadyRead() {
     QByteArray data = socket->readAll();
     QString response = QString::fromUtf8(data).trimmed();
+    qDebug() << "Onreadyread";
 
     // Разбираем ответ сервера по разделителю &
     QStringList parts = response.split('&');
@@ -65,6 +67,7 @@ void Client::onReadyRead() {
 
     if (type == "auth_success") {
         m_token = parts[1]; // Сохраняем присланный TOKEN
+        qDebug() << "Received token:" << m_token;
         emit authSuccess();
     } 
     else if (type == "auth_error") {

@@ -10,6 +10,8 @@ LoginWindow::LoginWindow(QWidget *parent)
     , ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+    connect(Client::getInstance(), &Client::authSuccess, this, &LoginWindow::handleAuthSuccess);
+    connect(Client::getInstance(), &Client::authError, this, &LoginWindow::handleAuthError);
 }
 
 LoginWindow::~LoginWindow()
@@ -43,6 +45,7 @@ void LoginWindow::on_btn_reg_clicked() {
 
 void LoginWindow::handleAuthSuccess() {
     // Переходим в главное меню (Личный кабинет)
+    qDebug() << "Авторизация прошла успешно!";
     MainWindow *mainWin = new MainWindow();
     mainWin->show();
     this->close(); // Закрываем окно логина совсем

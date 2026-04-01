@@ -1,5 +1,7 @@
 #include "regwindow.h"
 #include "ui_regwindow.h"
+#include "client.h"
+#include <QtWidgets>
 
 RegWindow::RegWindow(QWidget *parent)
     : QWidget(parent)
