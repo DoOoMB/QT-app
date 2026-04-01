@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres # Use a specific version for stability (e.g., 16)
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pass  # Required: set a strong password
+      POSTGRES_USER: postgres             # Optional: defaults to 'postgres'
+      POSTGRES_DB: QT_proj          # Optional: defaults to the user name
+      PGDATA: /var/lib/postgresql/data/    
+    volumes:
+      - pg_data:/var/lib/postgresql/data  # Persist data to a named volume
+    ports:
+      - "5433:5432" # Map container port 5432 to host port 5432
+
+volumes:
+  pg_data:
