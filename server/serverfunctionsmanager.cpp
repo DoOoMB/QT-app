@@ -178,21 +178,21 @@ QString isPathShortest(QStringList args)
 {
     if (args.length() != 4) return "isPathShortest_error\r\n";
     if (!DBManager::Instance().checkAuth(args[0], args[1])) return "token_expired\r\n";
-    return "isPathShortest&true";
+    return "isPathShortest&true\r\n";
 }
 
 QString primesAlgorithm(QStringList args)
 {
     if (args.length() != 4) return "primesAlgorithm_error\r\n";
     if (!DBManager::Instance().checkAuth(args[0], args[1])) return "token_expired\r\n";
-    return "primesAlgorithm&5";
+    return "primesAlgorithm&5\r\n";
 }
 
 QString kruskalsAlgorithm(QStringList args)
 {
     if (args.length() != 4) return "kruskalssAlgorithm_error\r\n";
     if (!DBManager::Instance().checkAuth(args[0], args[1])) return "token_expired\r\n";
-    return "kruskalssAlgorithm&5";
+    return "kruskalssAlgorithm&5\r\n";
 }
 
 
