@@ -37,7 +37,6 @@ void MyTcpServer::slotNewConnection(){
         QTcpSocket* clientSocket = mTcpServer->nextPendingConnection(); // читаем новое соединение
         clients.append(clientSocket); // добавляем клиента в буфер
 
-        clientSocket->write("Hello, World!!! I am echo server!\r\n"); // приветственное сообщение для клиента
         connect(clientSocket, &QTcpSocket::readyRead,this,&MyTcpServer::slotServerRead); // подключаем новый сокет клиента и назначаем нужные слоты для сигналов
         connect(clientSocket,&QTcpSocket::disconnected,this,&MyTcpServer::slotClientDisconnected);
 

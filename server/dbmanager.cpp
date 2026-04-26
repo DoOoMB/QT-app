@@ -5,6 +5,9 @@
 #include <QRandomGenerator>
 #include <QSqlError>
 #include <QUuid>
+#include <QDateTime>
+#include <QVariant>
+#include <QDebug>
 
 DBManager::DBManager()
 {
@@ -114,30 +117,48 @@ QString DBManager::getStats(QString login)
 {
     
     db.transaction();
-    QSqlQuery query;
-    query.prepare("SELECT s.stats, s.date FROM stats s JOIN users u ON u.user_id = s.user_id WHERE u.login = ?");
-    query.addBindValue(login);
-    if (!query.exec())
+    QSqlQuery query_correct_task_count;
+    QSqlQuery query_failed_task_count;
+    query_correct_task_count.prepare("select COUNT(*) FROM stats s \
+                                    JOIN users u ON u.user_id = s.user_id \
+                                    WHERE u.login = ? \
+                                    group by s.IS_CORRECT \
+                                    having s.IS_CORRECT = true");
+    query_correct_task_count.addBindValue(login);
+
+    query_failed_task_count.prepare("select COUNT(*) FROM stats s \
+                                    JOIN users u ON u.user_id = s.user_id \
+                                    WHERE u.login = ? \
+                                    group by s.IS_CORRECT \
+                                    having s.IS_CORRECT = false");
+    query_failed_task_count.addBindValue(login);
+    if (!query_correct_task_count.exec() || !query_failed_task_count.exec())
     {
         db.rollback();
-        qDebug() << "Database query execution error: " << query.lastError().text();
+        qDebug() << "Database query correct task execution error: " << query_correct_task_count.lastError().text();
+        qDebug() << "Database query failed task execution error: " << query_failed_task_count.lastError().text();
         return "query_error";
     }
-    QString stats = "";
-    while (query.next())
-    {
-        stats = stats + query.value("stats").toString() + "," + query.value("date").toString() + "&";
-    }
+
+    int correct_tasks = 0;
+    if (query_correct_task_count.next())
+        correct_tasks = query_correct_task_count.value(0).toInt();
+
+    int failed_tasks = 0;
+    if (query_failed_task_count.next())
+        failed_tasks = query_failed_task_count.value(0).toInt();
+
     db.commit();
-    return stats.mid(0, stats.length()-1);
+    return QString("%1&%2&%3").arg(correct_tasks+failed_tasks).arg(correct_tasks).arg(failed_tasks);
 }
 
-QString DBManager::setStats(QString login, QString stats)
+QString DBManager::setStats(QString login, int task_id, bool is_correct)
 {
     db.transaction();
     QSqlQuery query;
-    query.prepare("INSERT INTO stats (stats, date, user_id) VALUES (?, ?, (SELECT user_id FROM users u WHERE u.login = ? ))");
-    query.addBindValue(stats); // статы
+    query.prepare("INSERT INTO stats (task_id, is_correct, date, user_id) VALUES (?, ?, ?, (SELECT user_id FROM users u WHERE u.login = ? ))");
+    query.addBindValue(task_id); // id задания
+    query.addBindValue(is_correct); // статус (1 - верно, 0 - не верно)
     query.addBindValue(QDateTime::currentDateTime()); // текущее время
     query.addBindValue(login); // логин
     if (!query.exec())
@@ -148,6 +169,32 @@ QString DBManager::setStats(QString login, QString stats)
     }
     db.commit();
     return "set_stats_success";
+}
+
+Task DBManager::getTask(QString task_name)
+{
+    db.transaction();
+    QSqlQuery query;
+    query.prepare("select * from tasks \
+                where tasks.task_name = ? \
+                order by random() \
+                limit 1;");
+    query.addBindValue(task_name);
+    if (!query.exec())
+    {
+        db.rollback();
+        qDebug() << "Database query execution error: " << query.lastError().text();
+        return Task();
+    }
+    if (query.next())
+    {
+        Task res;
+        res.task_id = query.value("task_id").toInt();
+        res.task_text = query.value("task_text").toString();
+        res.correct_answer = query.value("correct_answer").toString();
+        return res;
+    }
+    return Task();
 }
 
 QString DBManager::executeQuery(QString q)
