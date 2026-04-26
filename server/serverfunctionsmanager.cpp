@@ -77,7 +77,7 @@ QString isPathShortest(QStringList args)
     Task resp = DBManager::Instance().getTask("isPathShortest");
     if (resp.task_id == -1)
         return "isPathShortest_error\r\n";
-    return QString("isPathShortest&%1&%2\r\n").arg(resp.task_text).arg(resp.correct_answer);
+    return QString("isPathShortest&%1&%2&%3\r\n").arg(resp.task_id).arg(resp.task_text).arg(resp.correct_answer);
 }
 
 QString primesAlgorithm(QStringList args)
@@ -87,7 +87,7 @@ QString primesAlgorithm(QStringList args)
     Task resp = DBManager::Instance().getTask("primesAlgorithm");
     if (resp.task_id == -1)
         return "primesAlgorithm_error\r\n";
-    return QString("primesAlgorithm&%1&%2\r\n").arg(resp.task_text).arg(resp.correct_answer);
+    return QString("primesAlgorithm&%1&%2&%3\r\n").arg(resp.task_id).arg(resp.task_text).arg(resp.correct_answer);
 }
 
 QString kruskalsAlgorithm(QStringList args)
@@ -97,7 +97,7 @@ QString kruskalsAlgorithm(QStringList args)
     Task resp = DBManager::Instance().getTask("kruskalsAlgorithm");
     if (resp.task_id == -1)
         return "kruskalsAlgorithm_error\r\n";
-    return QString("kruskalsAlgorithm&%1&%2\r\n").arg(resp.task_text).arg(resp.correct_answer);
+    return QString("kruskalsAlgorithm&%1&%2&%3\r\n").arg(resp.task_id).arg(resp.task_text).arg(resp.correct_answer);
 }
 
 
