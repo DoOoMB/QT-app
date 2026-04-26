@@ -1,330 +1,101 @@
-# API Сервера QT-TCP-Server
-
-## Общие сведения
-
-**Хост:** любой (слушает на всех интерфейсах)  
-**Порт:** 44444  
-**Формат команд:** `COMMAND&ARG1&ARG2&...` (разделитель `&`)  
-**Формат ответа:** `RESPONSE_TYPE&DATA\r\n` (завершается `\r\n`)
-
----
-
-## Команды
-
-### 1. AUTH — Авторизация пользователя
-
-**Формат запроса:**
-```
-auth&LOGIN&PASSWORD
-```
-
-**Аргументы:**
-- `LOGIN` — логин пользователя (строка)
-- `PASSWORD` — пароль пользователя (строка)
-
-**Ответ при успехе:**
-```
-auth_success&TOKEN
-```
-где `TOKEN` — уникальный токен для использования защищённых функций (действует 30 минут)
-
-**Ответ при ошибке:**
-```
-auth_error
-```
-
----
-
-### 2. REG — Регистрация пользователя
-
-**Формат запроса:**
-```
-reg&LOGIN&PASSWORD
-```
-
-**Аргументы:**
-- `LOGIN` — новый логин (строка)
-- `PASSWORD` — пароль (строка)
-
-**Ответ при успехе:**
-```
-reg_success
-```
-
-**Ответ при ошибке:**
-```
-reg_error
-```
-
----
-
-### 3. STATS — Получение статистики пользователя
-
-**Формат запроса:**
-```
-stats&LOGIN&TOKEN
-```
-
-**Аргументы:**
-- `LOGIN` — логин пользователя (строка)
-- `TOKEN` — токен авторизации (строка)
-
-**Ответ при успехе:**
-```
-stats&STAT1,DATE1&STAT2,DATE2&...
-```
-где каждый элемент `STATx,DATEx` — статистика и дата (разделитель `&`)
-
-**Ответы при ошибке:**
-```
-token_expired        — токен истёк
-get_stats_error      — ошибка сервера/БД
-```
-
----
-
-### 4. SET_STATS — Сохранение статистики
-
-**Формат запроса:**
-```
-set_stats&LOGIN&TOKEN&STATS_DATA
-```
-
-**Аргументы:**
-- `LOGIN` — логин пользователя (строка)
-- `TOKEN` — токен авторизации (строка)
-- `STATS_DATA` — произвольные данные статистики (строка/JSON)
-
-**Ответ при успехе:**
-```
-stats&set_stats_success
-```
-
-**Ответы при ошибке:**
-```
-token_expired       — токен истёк
-set_stats_error     — ошибка сервера/БД
-```
-
----
-
-### 5. FINDNODESBYDEPTH — Поиск узлов графа на глубине N
-
-**Формат запроса:**
-```
-findNodesByDepth&LOGIN&TOKEN&START_NODE_ID&GRAPH_JSON
-```
-
-**Аргументы:**
-- `LOGIN` — логин пользователя (строка)
-- `TOKEN` — токен авторизации (строка)
-- `START_NODE_ID` — ID начального узла (число)
-- `GRAPH_JSON` — граф в формате JSON массива
-
-**Формат GRAPH_JSON:**
-```json
-[
-  [NODE_ID, [[CONNECTED_NODE_ID, WEIGHT], ...] ],
-  ...
-]
-```
-Пример:
-```json
-[[1, [[2, 2], [3, 3]]], [2, [[1, 2], [3, 1]]], [3, [[1, 3], [2, 1]]]]
-```
-(Для невзвешенного графа используйте вес `1`)
-
-**Ответ при успехе:**
-```
-findNodesByDepth&NODE_ID1&NODE_ID2&...
-```
-где найденные узлы на глубине 2 (разделитель `&`)
-
-**Ответы при ошибке:**
-```
-token_expired            — токен истёк
-findNodesByDepth_error   — ошибка парсинга/обработки
-```
-
----
-
-### 6. ISPATHSHORTEST — Проверка кратчайшего пути
-
-**Формат запроса:**
-```
-isPathShortest&LOGIN&TOKEN&START_NODE&GRAPH_JSON
-```
-
-**Аргументы:**
-- `LOGIN` — логин пользователя (строка)
-- `TOKEN` — токен авторизации (строка)
-- `START_NODE` — ID начального узла (число)
-- `GRAPH_JSON` — граф в формате JSON массива (см. формат выше)
-
-**Ответ при успехе:**
-```
-isPathShortest&true
-```
-или
-```
-isPathShortest&false
-```
-
-**Ответы при ошибке:**
-```
-token_expired           — токен истёк
-isPathShortest_error    — ошибка обработки
-```
-
----
-
-### 7. PRIMESALGORITHM — Алгоритм Прима (минимальное остовное дерево)
-
-**Формат запроса:**
-```
-primesAlgorithm&LOGIN&TOKEN&START_NODE&GRAPH_JSON
-```
-
-**Аргументы:**
-- `LOGIN` — логин пользователя (строка)
-- `TOKEN` — токен авторизации (строка)
-- `START_NODE` — ID начального узла (число)
-- `GRAPH_JSON` — граф в формате JSON массива (см. формат выше)
-
-**Ответ при успехе:**
-```
-primesAlgorithm&WEIGHT
-```
-где `WEIGHT` — общий вес минимального остовного дерева (число)
-
-**Ответы при ошибке:**
-```
-token_expired          — токен истёк
-primesAlgorithm_error  — ошибка обработки
-```
-
----
-
-### 8. KRUSKALSALGORITHM — Алгоритм Крускала (минимальное остовное дерево)
-
-**Формат запроса:**
-```
-kruskalsAlgorithm&LOGIN&TOKEN&START_NODE&GRAPH_JSON
-```
-
-**Аргументы:**
-- `LOGIN` — логин пользователя (строка)
-- `TOKEN` — токен авторизации (строка)
-- `START_NODE` — ID начального узла (число)
-- `GRAPH_JSON` — граф в формате JSON массива (см. формат выше)
-
-**Ответ при успехе:**
-```
-kruskalssAlgorithm&WEIGHT
-```
-где `WEIGHT` — общий вес минимального остовного дерева (число)
-
-**Ответы при ошибке:**
-```
-token_expired               — токен истёк
-kruskalssAlgorithm_error    — ошибка обработки
-```
-
----
-
-## Обработка ответов (клиентская сторона)
-
-### Алгоритм:
-
-1. **Отправить команду:**
-   ```
-   socket.write("auth&user123&pass123");
-   ```
-
-2. **Получить ответ:**
-   ```
-   response = socket.read()  // получить данные до \r\n
-   ```
-
-3. **Парсить ответ:**
-   - Разделить по `&` на части
-   - Первая часть — тип ответа (status)
-   - Остальные части — данные
-
-4. **Обработать статус:**
-   ```
-   if response.contains("auth_success"):
-       token = response.split("&")[1]
-       // сохранить token для дальнейших запросов
-   
-   if response.contains("token_expired"):
-       // требуется новая авторизация
-   
-   if response.contains("error"):
-       // обработать ошибку
-   ```
-
-### Коды ответов:
-
-| Код | Значение |
-|-----|----------|
-| `auth_success` | Авторизация успешна |
-| `auth_error` | Ошибка авторизации |
-| `reg_success` | Регистрация успешна |
-| `reg_error` | Ошибка регистрации |
-| `stats` | Статистика получена/сохранена |
-| `token_expired` | Токен истёк — нужна переавторизация |
-| `get_stats_error` | Ошибка при получении статистики |
-| `set_stats_error` | Ошибка при сохранении статистики |
-| `findNodesByDepth` | Результат поиска в графе |
-| `findNodesByDepth_error` | Ошибка при обработке графа |
-| `isPathShortest` | Результат проверки пути |
-| `isPathShortest_error` | Ошибка при проверке пути |
-| `primesAlgorithm` | Результат алгоритма Прима |
-| `primesAlgorithm_error` | Ошибка при выполнении алгоритма Прима |
-| `kruskalssAlgorithm` | Результат алгоритма Крускала |
-| `kruskalssAlgorithm_error` | Ошибка при выполнении алгоритма Крускала |
-| `Unknown_command` | Неизвестная команда |
-
----
-
-## Жизненный цикл сеанса
-
-1. Клиент подключается к серверу на порт 44444
-2. Сервер отправляет приветствие: `"Hello, World!!! I am echo server!\r\n"`
-3. Клиент отправляет `auth` для авторизации и получает `TOKEN`
-4. Клиент использует `TOKEN` во всех защищённых запросах (`stats`, `set_stats`, `findNodesByDepth`)
-5. При истечении 30 минут требуется повторная авторизация
-6. Соединение закрывается по инициативе клиента или сервера
-
----
-
-## Пример использования (псевдокод)
-
-```python
-# Подключение
-socket = connect("localhost", 44444)
-welcome = socket.read()  # "Hello, World!!! I am echo server!\r\n"
-
-# Авторизация
-socket.write("auth&user1&pass123")
-response = socket.read()  # "auth_success&a1b2c3d4...\r\n"
-token = response.split("&")[1]
-
-# Получение статистики
-socket.write(f"stats&user1&{token}")
-response = socket.read()  # "stats&stat1,2026-03-29&stat2,2026-03-28\r\n"
-stats = response.split("&")[1:]
-
-# Сохранение статистики
-socket.write(f"set_stats&user1&{token}&new_stat_data")
-response = socket.read()  # "stats&set_stats_success\r\n"
-
-# Поиск в графе
-graph_json = "[[1,[[2,1],[3,1]]],[2,[[1,1]]],[3,[[1,1]]]]"
-socket.write(f"findNodesByDepth&user1&{token}&1&{graph_json}")
-response = socket.read()  # "findNodesByDepth&2&3\r\n"
-result = response.split("&")[1:]
-
-socket.close()
-```
+**Общие сведения**
+
+- **Хост:** любой (слушает на всех интерфейсах)  
+- **Порт:** 44444  
+- **Протокол:** TCP (чтение/запись текстовых команд)  
+- **Формат команд:** `COMMAND&ARG1&ARG2&...` (разделитель `&`)  
+- **Ответы сервера:** текстовая строка, всегда завершается `\r\n`  
+- **TTL токена:** 1800 секунд (30 минут) — см. dbmanager.cpp  
+- **Где смотреть реализацию:** mytcpserver.cpp, serverfunctionsmanager.cpp, dbmanager.cpp
+
+**Общий принцип**
+- Клиент отправляет одну текстовую команду (UTF-8), сервер парсит строку по символу `&` и вызывает соответствующую функцию. Ответы формируются в формате `TYPE&DATA...\r\n`.
+
+**Команды (эндпоинты)**
+
+- **auth:** Авторизация  
+  - Формат запроса: `auth&LOGIN&PASSWORD`  
+  - Аргументы: `LOGIN` (строка), `PASSWORD` (строка)  
+  - Успех: `auth_success&TOKEN\r\n` — `TOKEN` генерируется в DBManager::generateToken  
+  - Ошибки: `auth_args_error\r\n` (неверное число аргументов), `auth_error\r\n` (включая ошибки БД или неверные креды)
+
+- **reg:** Регистрация  
+  - Формат запроса: `reg&LOGIN&PASSWORD`  
+  - Аргументы: `LOGIN` (строка), `PASSWORD` (строка)  
+  - Успех: `reg_success\r\n`  
+  - Ошибки: `reg_args_error\r\n` (неверное число аргументов), `reg_error\r\n` (включая существующий логин, ошибки БД)
+
+- **stats:** Получение статистики пользователя  
+  - Формат запроса: `stats&LOGIN&TOKEN`  
+  - Аргументы: `LOGIN`, `TOKEN`  
+  - Успех: `stats&TOTAL&CORRECT&FAILED\r\n`  
+    - `TOTAL` — всего записей, `CORRECT` — количество верных, `FAILED` — количество неверных  
+    - Эти поля формируются в DBManager::getStats как `"%1&%2&%3"`  
+  - Ошибки: `stats_args_error\r\n` (неверное число аргументов), `token_expired\r\n` (токен не валиден/истёк), `get_stats_error\r\n` (ошибка запроса к БД)
+
+- **set_stats:** Сохранение результата задания (логирование)  
+  - Формат запроса: `set_stats&LOGIN&TOKEN&TASK_ID&IS_CORRECT`  
+  - Аргументы:
+    - `LOGIN` — логин
+    - `TOKEN` — токен авторизации
+    - `TASK_ID` — целое число (id задания)
+    - `IS_CORRECT` — `1` (верно) или `0` (неверно)  
+  - Успех: `stats&set_stats_success\r\n` (сервер оборачивает ответ от БД в префикс `stats&`)  
+  - Ошибки: `set_stats_args_error\r\n` (неверные/недопустимые аргументы), `token_expired\r\n`, `set_stats_error\r\n` (ошибка записи/БД)
+
+- **findNodesByDepth:** Получение задания «findNodesByDepth» (сервер выбирает случайную задачу из БД)  
+  - Формат запроса: `findNodesByDepth&LOGIN&TOKEN`  
+  - Аргументы: `LOGIN`, `TOKEN`  
+  - Успех: `findNodesByDepth&TASK_ID&TASK_TEXT&CORRECT_ANSWER\r\n`  
+    - `TASK_ID` — id задачи в БД, `TASK_TEXT` — текст задания (может содержать JSON/описание графа), `CORRECT_ANSWER` — эталонный ответ  
+  - Ошибки: `findNodesByDepth_args_error\r\n`, `token_expired\r\n`, `findNodesByDepth_error\r\n` (например, нет задач/ошибка БД)
+
+- **isPathShortest:** Задание проверки кратчайшего пути  
+  - Формат запроса: `isPathShortest&LOGIN&TOKEN`  
+  - Аргументы: `LOGIN`, `TOKEN`  
+  - Успех: `isPathShortest&TASK_TEXT&CORRECT_ANSWER\r\n`  
+    - Возвращается текст задания и правильный ответ (код в serverfunctionsmanager.cpp)  
+  - Ошибки: `isPathShortest_args_error\r\n`, `token_expired\r\n`, `isPathShortest_error\r\n`
+
+- **primesAlgorithm:** Задание по алгоритму Прима (или похожее)  
+  - Формат запроса: `primesAlgorithm&LOGIN&TOKEN`  
+  - Аргументы: `LOGIN`, `TOKEN`  
+  - Успех: `primesAlgorithm&TASK_TEXT&CORRECT_ANSWER\r\n`  
+  - Ошибки: `primesAlgorithm_args_error\r\n`, `token_expired\r\n`, `primesAlgorithm_error\r\n`
+
+- **kruskalsAlgorithm:** Задание по алгоритму Крускала  
+  - Формат запроса: `kruskalsAlgorithm&LOGIN&TOKEN`  
+  - Аргументы: `LOGIN`, `TOKEN`  
+  - Успех: `kruskalsAlgorithm&TASK_TEXT&CORRECT_ANSWER\r\n`  
+  - Особенность: при неверном числе аргументов функция возвращает строку с небольшим опечаточным именем ошибки `kruskalssAlgorithm_args_error\r\n` (это реальная строка в коде)  
+  - Ошибки: `kruskalssAlgorithm_args_error\r\n` (опечатка в коде), `token_expired\r\n`, `kruskalsAlgorithm_error\r\n`
+
+**Общие ответы/ошибки**
+- `Unknown_command\r\n` — команда не найдена (парсер в `ServerFunctionsManager::parse`)  
+- Любая команда может вернуть `_args_error\r\n` при неверном числе/формате аргументов.  
+- При ошибках БД код обычно возвращает `_error\r\n` или аналог.
+
+**Примечания по реализации**
+- Сервер не отправляет автоматического приветственного сообщения при подключении (в текущем коде нет записи на сокет в `slotNewConnection`) — см. mytcpserver.cpp.  
+- Команды строго разделяются символом `&`; сервер делает `trimmed()` перед разбором. Пустая команда логируется, но не обрабатывается.  
+- Проверка токена выполняется в `DBManager::checkAuth` (удаляет истёкшие токены и возвращает false, если токен неверен).
+
+**Короткий пример обмена (псевдокод)**
+
+- Авторизация:
+  - Отправить: `auth&alice&secret`  
+  - Получить: `auth_success&550e8400-e29b-41d4-a716-446655440000\r\n` (пример токена)
+
+- Запрос статистики:
+  - Отправить: `stats&alice&550e8400-e29b-41d4-a716-446655440000`  
+  - Получить: `stats&10&7&3\r\n`  (10 всего, 7 верных, 3 неверных)
+
+- Запрос задания:
+  - Отправить: `findNodesByDepth&alice&550e8400-e29b-41d4-a716-446655440000`  
+  - Получить: `findNodesByDepth&42&<task_text>&<correct_answer>\r\n`
+
+**Рекомендации для клиента**
+- Всегда сохранять и прикреплять токен к защищённым запросам.  
+- Обрабатывать `token_expired\r\n` как требование повторной авторизации.  
+- Разбирать ответ по `&` и отбрасывать завершающий `\r\n`.  
+- Учесть, что содержимое `TASK_TEXT` и `CORRECT_ANSWER` приходит из БД текстом
