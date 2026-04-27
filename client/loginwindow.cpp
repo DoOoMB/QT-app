@@ -43,13 +43,19 @@ void LoginWindow::on_btn_reg_clicked() {
     this->hide();
 }
 
-void LoginWindow::handleAuthSuccess() {
-    // Переходим в главное меню (Личный кабинет)
+void LoginWindow::handleAuthSuccess()
+{
     qDebug() << "Авторизация прошла успешно!";
+
+    disconnect(Client::getInstance(), nullptr, this, nullptr);
+
     MainWindow *mainWin = new MainWindow();
+    mainWin->setAttribute(Qt::WA_DeleteOnClose);
     mainWin->show();
-    this->close(); // Закрываем окно логина совсем
+
+    this->close();
 }
+
 
 void LoginWindow::handleAuthError() {
     QMessageBox::critical(this, "Ошибка", "Неверный логин или пароль!");

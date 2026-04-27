@@ -72,6 +72,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setAttribute(Qt::WA_DeleteOnClose);
+
 
     ui->pushButton->setText("Краскал");
     ui->pushButton_2->setText("Прим");
@@ -93,11 +95,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::on_btn_stats_clicked()
-{
-    Client::getInstance()->getStats();
 }
 
 void MainWindow::handleStatsReceived(const QString &data)
@@ -209,12 +206,16 @@ void MainWindow::handleTokenExpired()
 {
     QMessageBox::warning(this, "Сессия истекла", "Токен истёк. Войди заново.");
 
+    disconnect(Client::getInstance(), nullptr, this, nullptr);
     Client::getInstance()->logout();
 
     LoginWindow *loginWin = new LoginWindow();
+    loginWin->setAttribute(Qt::WA_DeleteOnClose);
     loginWin->show();
+
     close();
 }
+
 
 void MainWindow::handleServerMessage(const QString &message)
 {
@@ -243,9 +244,18 @@ void MainWindow::on_pushButton_4_clicked()
 
 void MainWindow::on_btn_logout_clicked()
 {
+    disconnect(Client::getInstance(), nullptr, this, nullptr);
     Client::getInstance()->logout();
 
     LoginWindow *loginWin = new LoginWindow();
+    loginWin->setAttribute(Qt::WA_DeleteOnClose);
     loginWin->show();
+
     close();
 }
+
+void MainWindow::on_btn_stats_clicked()
+{
+    Client::getInstance()->getStats();
+}
+
