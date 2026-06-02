@@ -96,6 +96,11 @@ $(document).ready(function(){initNavTree('classDBManager.html',''); initResizabl
   <div class="headertitle"><div class="title">DBManager Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Simple singleton wrapper around the application database.  
+ <a href="classDBManager.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="dbmanager_8h_source.html">dbmanager.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for DBManager:</div>
 <div class="dyncontent">
@@ -105,34 +110,211 @@ Inheritance diagram for DBManager:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab0b1de60c4e61269b35acfd803142124" id="r_ab0b1de60c4e61269b35acfd803142124"><td class="memItemLeft" align="right" valign="top"><a id="ab0b1de60c4e61269b35acfd803142124" name="ab0b1de60c4e61269b35acfd803142124"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>auth</b> (QString login, QString password)</td></tr>
+<tr class="memitem:ab0b1de60c4e61269b35acfd803142124" id="r_ab0b1de60c4e61269b35acfd803142124"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDBManager.html#ab0b1de60c4e61269b35acfd803142124">auth</a> (QString login, QString password)</td></tr>
 <tr class="separator:ab0b1de60c4e61269b35acfd803142124"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc75af25a6470928895d15ac3d0ed65f" id="r_adc75af25a6470928895d15ac3d0ed65f"><td class="memItemLeft" align="right" valign="top"><a id="adc75af25a6470928895d15ac3d0ed65f" name="adc75af25a6470928895d15ac3d0ed65f"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>registration</b> (QString login, QString password)</td></tr>
+<tr class="memitem:adc75af25a6470928895d15ac3d0ed65f" id="r_adc75af25a6470928895d15ac3d0ed65f"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDBManager.html#adc75af25a6470928895d15ac3d0ed65f">registration</a> (QString login, QString password)</td></tr>
 <tr class="separator:adc75af25a6470928895d15ac3d0ed65f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addc0a3ae2702415fdae09ca343073338" id="r_addc0a3ae2702415fdae09ca343073338"><td class="memItemLeft" align="right" valign="top"><a id="addc0a3ae2702415fdae09ca343073338" name="addc0a3ae2702415fdae09ca343073338"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>getStats</b> (QString login)</td></tr>
+<tr class="memitem:addc0a3ae2702415fdae09ca343073338" id="r_addc0a3ae2702415fdae09ca343073338"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDBManager.html#addc0a3ae2702415fdae09ca343073338">getStats</a> (QString login)</td></tr>
 <tr class="separator:addc0a3ae2702415fdae09ca343073338"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaca1d4df6722d1de18527a686735db21" id="r_aaca1d4df6722d1de18527a686735db21"><td class="memItemLeft" align="right" valign="top"><a id="aaca1d4df6722d1de18527a686735db21" name="aaca1d4df6722d1de18527a686735db21"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>setStats</b> (QString login, int task_id, bool is_correct)</td></tr>
+<tr class="memitem:aaca1d4df6722d1de18527a686735db21" id="r_aaca1d4df6722d1de18527a686735db21"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDBManager.html#aaca1d4df6722d1de18527a686735db21">setStats</a> (QString login, int task_id, bool is_correct)</td></tr>
 <tr class="separator:aaca1d4df6722d1de18527a686735db21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2783064cb34c6d6e1195c7579e768296" id="r_a2783064cb34c6d6e1195c7579e768296"><td class="memItemLeft" align="right" valign="top"><a id="a2783064cb34c6d6e1195c7579e768296" name="a2783064cb34c6d6e1195c7579e768296"></a>
-<a class="el" href="structTask.html">Task</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getTask</b> (QString task_name)</td></tr>
+<tr class="memitem:a2783064cb34c6d6e1195c7579e768296" id="r_a2783064cb34c6d6e1195c7579e768296"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structTask.html">Task</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDBManager.html#a2783064cb34c6d6e1195c7579e768296">getTask</a> (QString task_name)</td></tr>
 <tr class="separator:a2783064cb34c6d6e1195c7579e768296"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc2c177377370a9be764b9d3579aedd3" id="r_afc2c177377370a9be764b9d3579aedd3"><td class="memItemLeft" align="right" valign="top"><a id="afc2c177377370a9be764b9d3579aedd3" name="afc2c177377370a9be764b9d3579aedd3"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>executeQuery</b> (QString q)</td></tr>
+<tr class="memitem:afc2c177377370a9be764b9d3579aedd3" id="r_afc2c177377370a9be764b9d3579aedd3"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDBManager.html#afc2c177377370a9be764b9d3579aedd3">executeQuery</a> (QString q)</td></tr>
 <tr class="separator:afc2c177377370a9be764b9d3579aedd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf6f498615739a4337ea5b6455ce8ff3" id="r_abf6f498615739a4337ea5b6455ce8ff3"><td class="memItemLeft" align="right" valign="top"><a id="abf6f498615739a4337ea5b6455ce8ff3" name="abf6f498615739a4337ea5b6455ce8ff3"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>checkAuth</b> (QString login, QString token)</td></tr>
+<tr class="memitem:abf6f498615739a4337ea5b6455ce8ff3" id="r_abf6f498615739a4337ea5b6455ce8ff3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDBManager.html#abf6f498615739a4337ea5b6455ce8ff3">checkAuth</a> (QString login, QString token)</td></tr>
 <tr class="separator:abf6f498615739a4337ea5b6455ce8ff3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:af6492d6bd13d31b06b30f83923f0eb8b" id="r_af6492d6bd13d31b06b30f83923f0eb8b"><td class="memItemLeft" align="right" valign="top"><a id="af6492d6bd13d31b06b30f83923f0eb8b" name="af6492d6bd13d31b06b30f83923f0eb8b"></a>
 static <a class="el" href="classDBManager.html">DBManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>Instance</b> ()</td></tr>
+<tr class="memdesc:af6492d6bd13d31b06b30f83923f0eb8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get singleton instance. <br /></td></tr>
 <tr class="separator:af6492d6bd13d31b06b30f83923f0eb8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Simple singleton wrapper around the application database. </p>
+<p>Manages authentication tokens, user statistics and task retrieval. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab0b1de60c4e61269b35acfd803142124" name="ab0b1de60c4e61269b35acfd803142124"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0b1de60c4e61269b35acfd803142124">&#9670;&#160;</a></span>auth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString DBManager::auth </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>login</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Authenticate a user and return a token (or error string). </p>
+
+</div>
+</div>
+<a id="abf6f498615739a4337ea5b6455ce8ff3" name="abf6f498615739a4337ea5b6455ce8ff3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf6f498615739a4337ea5b6455ce8ff3">&#9670;&#160;</a></span>checkAuth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DBManager::checkAuth </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>login</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>token</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Check if a given login/token pair is valid. </p>
+
+</div>
+</div>
+<a id="afc2c177377370a9be764b9d3579aedd3" name="afc2c177377370a9be764b9d3579aedd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc2c177377370a9be764b9d3579aedd3">&#9670;&#160;</a></span>executeQuery()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString DBManager::executeQuery </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>q</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Execute a raw query and return result as string (internal use). </p>
+
+</div>
+</div>
+<a id="addc0a3ae2702415fdae09ca343073338" name="addc0a3ae2702415fdae09ca343073338"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addc0a3ae2702415fdae09ca343073338">&#9670;&#160;</a></span>getStats()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString DBManager::getStats </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>login</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Retrieve statistics for a user in a simple string format. </p>
+
+</div>
+</div>
+<a id="a2783064cb34c6d6e1195c7579e768296" name="a2783064cb34c6d6e1195c7579e768296"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2783064cb34c6d6e1195c7579e768296">&#9670;&#160;</a></span>getTask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTask.html">Task</a> DBManager::getTask </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>task_name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get task data by name. </p>
+
+</div>
+</div>
+<a id="adc75af25a6470928895d15ac3d0ed65f" name="adc75af25a6470928895d15ac3d0ed65f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc75af25a6470928895d15ac3d0ed65f">&#9670;&#160;</a></span>registration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString DBManager::registration </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>login</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Register a new user and return result string. </p>
+
+</div>
+</div>
+<a id="aaca1d4df6722d1de18527a686735db21" name="aaca1d4df6722d1de18527a686735db21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaca1d4df6722d1de18527a686735db21">&#9670;&#160;</a></span>setStats()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString DBManager::setStats </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>login</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>task_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_correct</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Save a task result for a user and return status string. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>server/<a class="el" href="dbmanager_8h_source.html">dbmanager.h</a></li>
 <li>server/<b>dbmanager.cpp</b></li>

@@ -10,7 +10,6 @@ var hierarchy =
       [ "MainWindow", "classMainWindow.html", null ]
     ] ],
     [ "QObject", null, [
-      [ "AuthManager", "classAuthManager.html", null ],
       [ "Client", "classClient.html", null ],
       [ "ClientTest", "classClientTest.html", null ],
       [ "DBManager", "classDBManager.html", null ],

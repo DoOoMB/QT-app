@@ -95,13 +95,57 @@ $(document).ready(function(){initNavTree('classServerFunctionsManager.html','');
   <div class="headertitle"><div class="title">ServerFunctionsManager Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Registry and dispatcher for server-side functions.  
+ <a href="classServerFunctionsManager.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="serverfunctionsmanager_8h_source.html">serverfunctionsmanager.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a0154d7c28e125a16224e7ccb54bab8d7" id="r_a0154d7c28e125a16224e7ccb54bab8d7"><td class="memItemLeft" align="right" valign="top"><a id="a0154d7c28e125a16224e7ccb54bab8d7" name="a0154d7c28e125a16224e7ccb54bab8d7"></a>
-static QString&#160;</td><td class="memItemRight" valign="bottom"><b>parse</b> (QString str)</td></tr>
+<tr class="memitem:a0154d7c28e125a16224e7ccb54bab8d7" id="r_a0154d7c28e125a16224e7ccb54bab8d7"><td class="memItemLeft" align="right" valign="top">static QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServerFunctionsManager.html#a0154d7c28e125a16224e7ccb54bab8d7">parse</a> (QString str)</td></tr>
+<tr class="memdesc:a0154d7c28e125a16224e7ccb54bab8d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse and execute a command string.  <br /></td></tr>
 <tr class="separator:a0154d7c28e125a16224e7ccb54bab8d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Registry and dispatcher for server-side functions. </p>
+<p>Maps textual commands to function pointers and parses incoming command strings to invoke the appropriate handler. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0154d7c28e125a16224e7ccb54bab8d7" name="a0154d7c28e125a16224e7ccb54bab8d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0154d7c28e125a16224e7ccb54bab8d7">&#9670;&#160;</a></span>parse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString ServerFunctionsManager::parse </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Parse and execute a command string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>raw command (name and arguments) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>handler result string </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>server/<a class="el" href="serverfunctionsmanager_8h_source.html">serverfunctionsmanager.h</a></li>
 <li>server/<b>serverfunctionsmanager.cpp</b></li>

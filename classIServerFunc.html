@@ -95,13 +95,57 @@ $(document).ready(function(){initNavTree('classIServerFunc.html',''); initResiza
   <div class="headertitle"><div class="title">IServerFunc Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Interface for server-side command handlers.  
+ <a href="classIServerFunc.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="serverfunc_8h_source.html">serverfunc.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a10453729de4f6a781175d3b5167cb7b8" id="r_a10453729de4f6a781175d3b5167cb7b8"><td class="memItemLeft" align="right" valign="top"><a id="a10453729de4f6a781175d3b5167cb7b8" name="a10453729de4f6a781175d3b5167cb7b8"></a>
-virtual QString&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> (QStringList args)</td></tr>
+<tr class="memitem:a10453729de4f6a781175d3b5167cb7b8" id="r_a10453729de4f6a781175d3b5167cb7b8"><td class="memItemLeft" align="right" valign="top">virtual QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIServerFunc.html#a10453729de4f6a781175d3b5167cb7b8">run</a> (QStringList args)</td></tr>
+<tr class="memdesc:a10453729de4f6a781175d3b5167cb7b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the server function with arguments.  <br /></td></tr>
 <tr class="separator:a10453729de4f6a781175d3b5167cb7b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Interface for server-side command handlers. </p>
+<p>Implementations should provide a <code>run</code> method that accepts string arguments and returns a result string. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a10453729de4f6a781175d3b5167cb7b8" name="a10453729de4f6a781175d3b5167cb7b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10453729de4f6a781175d3b5167cb7b8">&#9670;&#160;</a></span>run()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual QString IServerFunc::run </td>
+          <td>(</td>
+          <td class="paramtype">QStringList&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Execute the server function with arguments. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">args</td><td>list of string arguments </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>result string (response to client) </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>server/<a class="el" href="serverfunc_8h_source.html">serverfunc.h</a></li>
 </ul>

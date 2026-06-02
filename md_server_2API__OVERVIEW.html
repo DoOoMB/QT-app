@@ -145,7 +145,7 @@ $(document).ready(function(){initNavTree('md_server_2API__OVERVIEW.html',''); in
 <ul>
 <li><code>TOTAL</code> — всего записей, <code>CORRECT</code> — количество верных, <code>FAILED</code> — количество неверных <br  />
 </li>
-<li>Эти поля формируются в DBManager::getStats как <code>"%1&amp;%2&amp;%3"</code> <br  />
+<li>Эти поля формируются в <a class="el" href="classDBManager.html#addc0a3ae2702415fdae09ca343073338">DBManager::getStats</a> как <code>"%1&amp;%2&amp;%3"</code> <br  />
 </li>
 </ul>
 </li>
@@ -225,7 +225,7 @@ $(document).ready(function(){initNavTree('md_server_2API__OVERVIEW.html',''); in
 </li>
 </ul>
 <p><b>Общие ответы/ошибки</b></p><ul>
-<li><code>Unknown_command\r\n</code> — команда не найдена (парсер в <code>ServerFunctionsManager::parse</code>) <br  />
+<li><code>Unknown_command\r\n</code> — команда не найдена (парсер в <code><a class="el" href="classServerFunctionsManager.html#a0154d7c28e125a16224e7ccb54bab8d7" title="Parse and execute a command string.">ServerFunctionsManager::parse</a></code>) <br  />
 </li>
 <li>Любая команда может вернуть <code>_args_error\r\n</code> при неверном числе/формате аргументов. <br  />
 </li>
@@ -236,7 +236,7 @@ $(document).ready(function(){initNavTree('md_server_2API__OVERVIEW.html',''); in
 </li>
 <li>Команды строго разделяются символом <code>&amp;</code>; сервер делает <code>trimmed()</code> перед разбором. Пустая команда логируется, но не обрабатывается. <br  />
 </li>
-<li>Проверка токена выполняется в <code>DBManager::checkAuth</code> (удаляет истёкшие токены и возвращает false, если токен неверен).</li>
+<li>Проверка токена выполняется в <code><a class="el" href="classDBManager.html#abf6f498615739a4337ea5b6455ce8ff3">DBManager::checkAuth</a></code> (удаляет истёкшие токены и возвращает false, если токен неверен).</li>
 </ul>
 <p><b>Короткий пример обмена (псевдокод)</b></p>
 <ul>
