@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pages: write
 
 jobs:
   deploy:
@@ -22,6 +23,11 @@ jobs:
 
       - name: Generate Documentation
         run: doxygen Doxyfile
+
+      - name: Show generated files (debug)
+        run: |
+          echo "Listing docs/html contents"
+          ls -la docs/html || true
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
