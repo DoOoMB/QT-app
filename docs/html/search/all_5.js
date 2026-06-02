@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['mainwindow_0',['MainWindow',['../class_main_window.html',1,'']]],
-  ['mytcpserver_1',['MyTcpServer',['../class_my_tcp_server.html',1,'']]]
+  ['instance_0',['Instance',['../classDBManager.html#af6492d6bd13d31b06b30f83923f0eb8b',1,'DBManager']]],
+  ['iserverfunc_1',['IServerFunc',['../classIServerFunc.html',1,'']]]
 ];

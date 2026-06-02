@@ -1,26 +1,39 @@
 var hierarchy =
 [
-    [ "AuthData", "struct_auth_data.html", null ],
-    [ "ClientDestroyer", "class_client_destroyer.html", null ],
-    [ "IServerFunc", "class_i_server_func.html", null ],
+    [ "AuthData", "structAuthData.html", null ],
+    [ "ClientDestroyer", "classClientDestroyer.html", null ],
+    [ "IServerFunc", "classIServerFunc.html", null ],
     [ "QDialog", null, [
-      [ "TaskDialog", "class_task_dialog.html", null ]
+      [ "TaskDialog", "classTaskDialog.html", null ]
     ] ],
     [ "QMainWindow", null, [
-      [ "MainWindow", "class_main_window.html", null ]
+      [ "MainWindow", "classMainWindow.html", null ]
     ] ],
     [ "QObject", null, [
-      [ "AuthManager", "class_auth_manager.html", null ],
-      [ "Client", "class_client.html", null ],
-      [ "ClientTest", "class_client_test.html", null ],
-      [ "DBManager", "class_d_b_manager.html", null ],
-      [ "MyTcpServer", "class_my_tcp_server.html", null ],
-      [ "ServerFunctionsTest", "class_server_functions_test.html", null ]
+      [ "Client", "classClient.html", null ],
+      [ "ClientTest", "classClientTest.html", null ],
+      [ "DBManager", "classDBManager.html", null ],
+      [ "MyTcpServer", "classMyTcpServer.html", null ],
+      [ "ServerFunctionsTest", "classServerFunctionsTest.html", null ]
     ] ],
+    [ "QT_WARNING_DISABLE_DEPRECATED::qt_meta_tag_ZN10MainWindowE_t", "structQT__WARNING__DISABLE__DEPRECATED_1_1qt__meta__tag__ZN10MainWindowE__t.html", null ],
+    [ "QT_WARNING_DISABLE_DEPRECATED::qt_meta_tag_ZN11LoginWindowE_t", "structQT__WARNING__DISABLE__DEPRECATED_1_1qt__meta__tag__ZN11LoginWindowE__t.html", null ],
+    [ "QT_WARNING_DISABLE_DEPRECATED::qt_meta_tag_ZN11MyTcpServerE_t", "structQT__WARNING__DISABLE__DEPRECATED_1_1qt__meta__tag__ZN11MyTcpServerE__t.html", null ],
+    [ "QT_WARNING_DISABLE_DEPRECATED::qt_meta_tag_ZN6ClientE_t", "structQT__WARNING__DISABLE__DEPRECATED_1_1qt__meta__tag__ZN6ClientE__t.html", null ],
+    [ "QT_WARNING_DISABLE_DEPRECATED::qt_meta_tag_ZN9RegWindowE_t", "structQT__WARNING__DISABLE__DEPRECATED_1_1qt__meta__tag__ZN9RegWindowE__t.html", null ],
     [ "QWidget", null, [
-      [ "LoginWindow", "class_login_window.html", null ],
-      [ "RegWindow", "class_reg_window.html", null ]
+      [ "LoginWindow", "classLoginWindow.html", null ],
+      [ "RegWindow", "classRegWindow.html", null ]
     ] ],
-    [ "ServerFunctionsManager", "class_server_functions_manager.html", null ],
-    [ "Task", "struct_task.html", null ]
+    [ "ServerFunctionsManager", "classServerFunctionsManager.html", null ],
+    [ "Task", "structTask.html", null ],
+    [ "Ui_LoginWindow", "classUi__LoginWindow.html", [
+      [ "Ui::LoginWindow", "classUi_1_1LoginWindow.html", null ]
+    ] ],
+    [ "Ui_MainWindow", "classUi__MainWindow.html", [
+      [ "Ui::MainWindow", "classUi_1_1MainWindow.html", null ]
+    ] ],
+    [ "Ui_RegWindow", "classUi__RegWindow.html", [
+      [ "Ui::RegWindow", "classUi_1_1RegWindow.html", null ]
+    ] ]
 ];
