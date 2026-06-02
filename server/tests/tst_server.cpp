@@ -22,7 +22,6 @@ void ServerFunctionsTest::unknownCommandReturnsUnknown()
 
 void ServerFunctionsTest::authArgsErrorWhenWrongNumber()
 {
-    // auth expects exactly 2 args after command
     QString res1 = ServerFunctionsManager::parse("auth&only_one_arg");
     QCOMPARE(res1, QString("auth_args_error\r\n"));
 
@@ -38,7 +37,6 @@ void ServerFunctionsTest::registrationArgsErrorWhenWrongNumber()
 
 void ServerFunctionsTest::setStatsArgsErrorWhenBadInts()
 {
-    // set_stats expects 4 args and third should be integer, fourth "1" or "0"
     QString res1 = ServerFunctionsManager::parse("set_stats&u&t&notint&1");
     QCOMPARE(res1, QString("set_stats_args_error\r\n"));
 

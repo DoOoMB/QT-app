@@ -27,8 +27,10 @@ private slots:
     void on_pushButton_4_clicked(); // Task 4
     void on_btn_logout_clicked();   // Кнопка выхода
     void on_btn_stats_clicked();
+    /** Handle text-formatted stats received from server. */
     void handleStatsReceived(const QString &data);
 
+    /** Handle incoming task payload. */
     void handleTaskReceived(const QString &taskType, int taskId, const QString &taskText, const QString &correctAnswer);
     void handleTaskResultSaved();
     void handleTokenExpired();
@@ -36,10 +38,13 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    /** Ask `Client` for a task by command. */
     void requestTask(const QString &taskCommand);
+    /** Human-readable title for a task type. */
     QString taskTitle(const QString &taskType) const;
     QString normalizeText(const QString &text) const;
     QStringList normalizeList(const QString &text) const;
+    /** Compare normalized answers. */
     bool answersMatch(const QString &userAnswer, const QString &correctAnswer) const;
 };
 #endif // MAINWINDOW_H

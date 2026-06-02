@@ -14,8 +14,6 @@ qt_add_executable(qt-tcp-server
     main.cpp
     mytcpserver.cpp
     mytcpserver.h
-    authmanager.h
-    authmanager.cpp
     dbmanager.h
     dbmanager.cpp
     serverfunc.h
